@@ -7,7 +7,7 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 import VueSocketio from 'vue-socket.io';
 
-Vue.use(VueSocketio, 'http://localhost:5000')
+Vue.use(VueSocketio, 'http://192.168.5.11:5000')
 Vue.use(Vuetify)
 Vue.config.productionTip = false
 

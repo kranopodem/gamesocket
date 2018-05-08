@@ -81,27 +81,30 @@ io.on('connection', socket => {
     console.log(chalk.red(`Socket ID ${socket.id} has created room ${room}`))
   })
 
-  socket.on('joinRoom', (roomNumber) => {
+  socket.on('joinRoom', (roomNumber, username) => {
     rooms.forEach(function (room) {
       if (room.id == roomNumber) {
         var selectRoom = rooms.find(selectRoom=>selectRoom.id==roomNumber)
         room.users.forEach(function(user){
-          console.log(user.id+' - '+socket.id)
-          if (user.id == socket.id) {
+          console.log(user.id+' - '+socket.id+' - '+user.name)
+          if ((user.id == socket.id)||(user.name == username)) {
             userExist = true;
           } 
         })
         if(!userExist){
           room.users.push({
             'id': socket.id,
+            'name': username,
             'role': 'user'
           })
           console.log(room.users[0].id)
           socket.join(roomNumber)
+          socket.username = username;
           io.sockets.in(roomNumber).emit('message', selectRoom.users)
           console.log(chalk.red(`Socket ID ${socket.id} has created room ${roomNumber}`))
         }else{
           console.log('хуй')
+          socket.emit('errors','Такой пользователь уже есть')
           userExist=false
         }
       }

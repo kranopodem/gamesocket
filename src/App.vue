@@ -3,7 +3,6 @@
       <app-toolbar></app-toolbar>
         <router-view/>
         <app-progress></app-progress>
-      <app-footer></app-footer>
   </div>
 </template>
 

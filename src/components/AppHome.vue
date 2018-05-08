@@ -58,12 +58,16 @@
       message: function (users) {
         this.users = users;
         console.log(users)
+      },
+      errors: function (message){
+        alert(message)
       }
     },
     methods: {
       connectRoom: function () {
-        this.$socket.emit('joinRoom', this.room);
+        this.$socket.emit('joinRoom', this.room, this.userName);
       },
+      
       createRoom: function () {
         var roomCode = Math.floor(1000 + Math.random() * 9000);//Генерация кода комнаты
         this.roomCode = roomCode;
